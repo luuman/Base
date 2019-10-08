@@ -1,5 +1,5 @@
 title: 小程序知识点总结
-date: 2019-08-27 14:11:20
+date: 2019-07-27 14:11:20
 description: 
 categories:
 - WeChat
@@ -13,7 +13,7 @@ permalink:
 image: https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1566382029281&di=2dc28d99e5c1c6dd82d616841b7f5ce7&imgtype=0&src=http%3A%2F%2Fhomesitetask.zbjimg.com%2Fhomesite%2Ftask%2Fd9c347.png%2Forigine%2F1dd2fcc6-1152-48db-861e-958bf99c3cd7
 ---
 
-　　**AJAX：**Asynchronous Javascript And XML（异步JavaScript和XML）。是指一种创建交互式网页应用的网页开发技术。 AJAX = 异步 JavaScript和XML（标准通用标记语言的子集）。 AJAX 是一种用于创建快速动态网页的技术。 通过在后台与服务器进行少量数据交换，AJAX 可以使网页实现异步更新。这意味着可以在不重新加载整个网页的情况下，对网页的某部分进行更新。 传统的网页（不使用 AJAX）如果需要更新内容，必须重载整个网页页面。
+　　**自用笔记：**本文属于自用笔记，不做详解，仅供参考。在此记录自己已理解并开始遵循的前端代码规范。What How Why
 
 <!-- more -->
 
@@ -140,6 +140,23 @@ wx.hideLoading()
 ```
 
 ## API
+
+### 获取某个元素
+
+wx.createSelectorQuery().select('#the-id').boundingClientRect(function(rect){
+}).exec()
+
+属性 | 说明
+---|---
+id         | 节点的ID
+dataset    | 节点的dataset
+left       | 节点的左边界坐标
+right      | 节点的右边界坐标
+top        | 节点的上边界坐标
+bottom     | 节点的下边界坐标
+width      | 节点的宽度
+height     | 节点的高度
+
 ### 动态设置顶部导航栏的背景色
 
 wx.setNavigationBarTitle(OBJECT)
@@ -215,6 +232,67 @@ onPageScroll: function(res) {
   },
 ```
 
+### 监听数据变化
+
+```app.js
+/**
+   * 设置监听器
+   */
+setWatcher(data, watch) { // 接收index.js传过来的data对象和watch对象
+  Object.keys(watch).forEach(v => { // 将watch对象内的key遍历
+    this.observe(data, v, watch[v]); // 监听data内的v属性，传入watch内对应函数以调用
+  })
+},
+
+/**
+ * 监听属性 并执行监听函数
+ */
+observe(obj, key, watchFun) {
+  var val = obj[key]; // 给该属性设默认值
+  Object.defineProperty(obj, key, {
+    configurable: true,
+    enumerable: true,
+    set (value) {
+      val = value;
+      watchFun(value, val); // 赋值(set)时，调用对应函数
+    },
+    get () {
+      return val;
+    }
+  })
+},
+```
+### 获取某个元素或组件距离顶部的初始高度
+可以获取元素的到顶部的高度，但是要双层动态监听导致元素效果不够流畅，而且没有必要。
+
+```
+let query = wx.createSelectorQuery()
+query.select('#index-nav').boundingClientRect( (rect) => {
+  let top = rect.top
+}).exec()
+```
+
+优化效果
+获取上层盒子的高度`height`，细微调整效果。
+```
+setTimeout(f => {
+  let query = wx.createSelectorQuery()
+  query.select('#index').boundingClientRect( (rect) => {
+    let top = rect.top
+  }).exec()
+}, 500)
+```
+
+### wx.showLoading()阻止屏幕滑动
+
+```
+wx.showLoading({
+  title:'加载中',
+  mask:true
+})
+//mask是防止屏幕穿透的，默认是false，所以想要拦截屏幕滑动事件，就一定要记得写这一行
+```
+
 ## 组件开发
 Component 构造函数
 
@@ -262,9 +340,34 @@ Component({
   }
 })
 ```
+### 父级调用组件内的自定义方法
 
+```wx
+<view id="index-nav"></view>
+
+this.IndexNav = this.selectComponent("#index-nav")
+```
+
+this.triggerEvent('myevent')
 
 ### swiper
 
 [swiper](https://developers.weixin.qq.com/miniprogram/dev/component/swiper.html "")
 
+### 调用组件中的方法
+
+```index.wxml
+<card-sroll id="index-nav"></card-sroll>
+```
+
+```index.js
+onReady () {
+  this.IndexNav = this.selectComponent("#index-nav")
+  app.getSetting();
+  this.showIndexList()
+  this.getWeatherInfo(app.globalData.adcode);
+},
+setHeight () {
+  this.IndexNav.setHeight('0')
+},
+```

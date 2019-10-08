@@ -16,6 +16,45 @@ image: https://blog.fundebug.com/2018/06/26/why-mapping-constructed-array-not-wo
 在此记录自己已理解并开始遵循的前端代码规范。What How Why
 <!-- more -->
 
+# 创建数组
+## 隐式创建
+``` javascript
+var arr=['Audi', 'BMW', 'Volvo']
+```
+
+## 直接实例化
+``` javascript
+var arr=new Array('Audi', 'BMW', 'Volvo')
+```
+
+## 快速构建数组
+### 直接构建法:
+``` javascript
+let arr = ['mock', 'mock', 'mock']
+```
+### 循环法: for循环
+``` javascript
+let arr = []
+for(var i = 0;i < 3;i++){
+  arr.push('mock')
+}
+```
+### 快速填充数组
+``` javascript
+let newArr = new Array(3).fill('mock');
+```
+
+## 构建顺序(倒序数组)
+
+### 快速填充数组
+``` javascript
+let newArr = new Array(10).fill(1).map((item, index) => index + 1)
+```
+
+``` javascript
+let funss = (m, n) => Array.apply(null, new Array(m)).map(() => n++)
+```
+
 # 数组最大值
 ## es6拓展运算符...
 ``` javascript
@@ -33,7 +72,7 @@ Math.max.apply(null,arr)
 ## for循环
 ``` javascript
 var arr = [-1, 1, 101, -52, 10, 1001, 1001]
-let max = arr[0];
+let max = arr[0]
 for (let i = 0; i < arr.length - 1; i++) {
   max = arr[i] < arr[i+1] ? arr[i+1] : arr[i]
 }
@@ -49,6 +88,7 @@ arr[0]
 ```
 
 ## 数组reduce
+array.reduce(function(total, currentValue, currentIndex, arr), initialValue)
 ``` javascript
 var arr = [-1, 1, 101, -52, 10, 1001, 1001]
 arr.reduce((num1, num2) => {
@@ -196,5 +236,7 @@ function concatArray(a, b) {
 concatArray(a, b)
 // [1, 3, 4, 5, 2]
 ```
+
+
 
 
