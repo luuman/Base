@@ -17,7 +17,6 @@ image: https://www.7up.nl/images/mockup/product-single/lemonlemon/lemon-campaign
 
 <!-- more -->
 
-
 <div class="masonry">
   <div class="item">
     <div class="item__content">

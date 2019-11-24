@@ -55,6 +55,7 @@ console.log(arr.fakeFilter(item => item == 'x'))
 ```
 
 ## reduce
+
 ```javascript
 Array.prototype.fakeReduce = function (fn, initialValue) {
 	if (typeof fn != 'function') throw new TypeError(`${fn} is not a function`)
@@ -70,3 +71,16 @@ var arr = [1, 2, 3]
 
 console.log(arr.fakeReduce((prev, cur) => prev + cur))
 ```
+
+
+
+Array.proptotype.fakeMap = function (fn, context) {
+	if (typeof fn != 'function') throw new TypeError(`${fn} is not a function`) 
+	let arrg = this
+	let sum = []
+	for (let i = 0; i < arrg.length; i++) {
+		let result = fn.apply(context, arr[i], i, arr)
+		sum.push(result)
+	}
+	return sum
+}

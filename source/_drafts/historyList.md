@@ -19,7 +19,7 @@ image: http://www.easyfinance.com.cn/Finance/images/Article/2019-02/21-09-50-555
 <!-- more -->
 
 ```javascript
-function gohistroyList(item) {
+function gohistroyList(item, num = 10) {
   // 过滤重复项
   if (this.histroyList.includes(item)) {
     this.histroyList.splice(this.histroyList.indexOf(item), 1)
@@ -27,7 +27,7 @@ function gohistroyList(item) {
   let History = []
   History.push(item)
   History = History.concat(this.histroyList)
-  if (History.length > 11) History.splice(11, 1)
+  if (History.length > num + 1) History.splice(num + 1, 1)
   this.histroyList = History
   localStorage.setItem('histroyList', JSON.stringify(this.histroyList))
 }

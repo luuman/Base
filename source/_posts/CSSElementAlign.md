@@ -15,8 +15,8 @@ image: https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=15663
 
 　　**自用笔记：**本文属于自用笔记，不做详解，仅供参考。在此记录自己已理解并开始遵循的前端代码规范。What How Why
 <!-- more -->
-# 浮动垂直水平居中
-## 固定长度
+
+## 固定长度 - 垂直水平居中
 ### margin反向移动
 >使用position:absolute,设置left、top、margin-left、margin-top的属性
 这种方法基本浏览器都能够兼容，不足之处就是需要固定宽高。
@@ -34,7 +34,7 @@ image: https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=15663
 	}
 ```
 
-<!-- <div class="one">one</div> -->
+<div class="one">one</div>
 <style type="text/css">
 	.one{
 		position:absolute;
@@ -65,7 +65,7 @@ image: https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=15663
 大家都知道的position:fixed,IE是不支持这个属性的
 
 
-<!-- <div class="two">two</div> -->
+<div class="two">two</div>
 <style type="text/css">
 	.two{
 		position:fixed;
@@ -78,8 +78,6 @@ image: https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=15663
 		background:orange;
 	}
 </style>
-
-## 宽度自动
 ### 自动加清零
 
 ```
@@ -95,7 +93,7 @@ image: https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=15663
 		background:pink;
 	}
 ```
-<!-- <div class="three">three</div> -->
+<div class="three">three</div>
 <style type="text/css">
 	.three{
 		position:fixed;
@@ -124,7 +122,7 @@ image: https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=15663
 		background:black;
 	}
 ```
-<!-- <div class="four">four</div> -->
+<div class="four">four</div>
 <style type="text/css">
 	.four{
 		position:absolute;
@@ -138,6 +136,8 @@ image: https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=15663
 		background:black;
 	}
 </style>
+
+## 宽度自动 - 垂直水平居中
 
 ### 偏移
 
@@ -158,7 +158,7 @@ image: https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=15663
 		background:green;
 	}
 ```
-<!-- <div class="eight">eight</div> -->
+<div class="eight">eight</div>
 <style type="text/css">
 	.eight{
 		position:absolute;
@@ -206,7 +206,7 @@ image: https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=15663
 	}
 ```
 
-<!-- <div class="nine"><div class="content">nine</div></div> -->
+<div class="nine"><div class="content">nine</div></div>
 <style type="text/css">
 	.nine{
 		position:fixed;
@@ -237,7 +237,7 @@ image: https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=15663
 
 ### flex
 
-# 文字居中
+## 文字居中
 ### 文字垂直水平居中
 
 >利用display:table-cell属性使内容垂直居中
@@ -253,7 +253,7 @@ image: https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=15663
 	}
 ```
 
-<!-- <div class="five">span</div> -->
+<div class="five">span</div>
 <style type="text/css">
 	.five{
 		display:table-cell;
@@ -306,7 +306,7 @@ image: https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=15663
 		color:black;
 	}
 ```
-<!-- <div class="seven">seven</div> -->
+<div class="seven">seven</div>
 <style type="text/css">
 	.seven{
 		width:90px;
